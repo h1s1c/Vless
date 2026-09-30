@@ -60,33 +60,37 @@ function buildOutput(parsed) {
   const uuid = parsed.uuid;
   const name = parsed.name;
   const fragment = encodeQueryValue(getFragmentTemplate());
+  const cipherSuites = 'TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256\n\n';
 
-  // Parameter order and values follow the output template provided by the user.
+  // Match the requested output template and preserve the input UUID/name.
   const query = [
+    `cs=${encodeQueryValue(cipherSuites)}`,
     'path=%2F',
     'security=tls',
-    'alpn=h3%2Ch2%2Chttp%2F1.1',
     'encryption=none',
     `fm=${fragment}`,
     'insecure=0',
     'host=login.vip2vip.info',
+    'fp=unsafe',
     'type=httpupgrade',
     'allowInsecure=0',
     'sni=login.vip2vip.info'
   ].join('&');
 
-  const output = `vless://${uuid}@8.47.69.0:443?${query}#${encodeURIComponent(name)}`;
+  const output = `vless://${uuid}@mtn.vip2vip.info:443?${query}#${encodeURIComponent(name)}`;
 
   // Reparse the generated URL to catch encoding/structure mistakes.
   let check;
   try { check = new URL(output); } catch { throw new Error('خطا در ساخت URL خروجی رخ داد.'); }
-  if (check.protocol !== 'vless:' || check.hostname !== '8.47.69.0' || check.port !== '443') {
+  if (check.protocol !== 'vless:' || check.hostname !== 'mtn.vip2vip.info' || check.port !== '443') {
     throw new Error('اعتبارسنجی آدرس خروجی ناموفق بود.');
   }
   if (check.searchParams.get('security') !== 'tls' ||
       check.searchParams.get('type') !== 'httpupgrade' ||
       check.searchParams.get('host') !== 'login.vip2vip.info' ||
-      check.searchParams.get('sni') !== 'login.vip2vip.info') {
+      check.searchParams.get('sni') !== 'login.vip2vip.info' ||
+      check.searchParams.get('fp') !== 'unsafe' ||
+      !check.searchParams.get('cs').endsWith('\n\n')) {
     throw new Error('برخی پارامترهای ضروری خروجی درست ساخته نشده‌اند.');
   }
   try {
