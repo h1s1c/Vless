@@ -3,48 +3,148 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="تبدیل و اعتبارسنجی محلی کانفیگ VLESS">
+  <meta
+    name="description"
+    content="تبدیل محلی کانفیگ VLESS به قالب ایرانسل و همراه اول"
+  >
+
   <title>تبدیل‌گر کانفیگ VLESS</title>
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
   <main class="container">
     <header class="hero">
       <div class="eyebrow">VLESS · ابزار محلی</div>
+
       <h1>تبدیل‌گر کانفیگ VLESS</h1>
-      <p>کانفیگ را وارد کنید؛ خروجی مطابق قالب تنظیم‌شده ساخته می‌شود. پردازش در مرورگر انجام می‌شود.</p>
+
+      <p>
+        کانفیگ را وارد کنید و قالب ایرانسل یا همراه اول را انتخاب کنید.
+        پردازش در مرورگر انجام می‌شود.
+      </p>
     </header>
 
-    <section class="panel">
+    <section class="panel" aria-labelledby="inputHeading">
       <div class="section-heading">
-        <h2>کانفیگ ورودی</h2>
+        <h2 id="inputHeading">کانفیگ ورودی</h2>
+
+        <button
+          id="loadExample"
+          class="button secondary"
+          type="button"
+        >
+          قرار دادن نمونه
+        </button>
       </div>
+
       <label for="inputConfig">آدرس VLESS</label>
-      <textarea id="inputConfig" spellcheck="false" dir="ltr" placeholder="vless://UUID@server:port?type=...#Name"></textarea>
-      <div class="hint">این نسخه یک کانفیگ را در هر بار پردازش می‌کند. UUID و نام کانفیگ حفظ می‌شوند.</div>
-      <div class="actions">
-        <button id="convertBtn" class="button primary" type="button">تبدیل و اعتبارسنجی</button>
-        <button id="clearBtn" class="button secondary" type="button">پاک کردن</button>
+
+      <textarea
+        id="inputConfig"
+        spellcheck="false"
+        autocomplete="off"
+        autocapitalize="off"
+        dir="ltr"
+        placeholder="vless://UUID@server:port?type=...#Name"
+        aria-describedby="inputHint"
+      ></textarea>
+
+      <div id="inputHint" class="hint">
+        هر بار یک کانفیگ وارد کنید. UUID و نام کانفیگ در هر دو قالب
+        حفظ می‌شوند.
       </div>
-      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <div class="actions">
+        <button
+          id="convertBtn"
+          class="button primary"
+          type="button"
+        >
+          کانفیگ ایرانسل
+        </button>
+
+        <button
+          id="mciBtn"
+          class="button primary"
+          type="button"
+        >
+          کانفیگ همراه اول
+        </button>
+
+        <button
+          id="clearBtn"
+          class="button secondary"
+          type="button"
+        >
+          پاک کردن
+        </button>
+      </div>
+
+      <div
+        id="status"
+        class="status"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
     </section>
 
-    <section class="panel">
+    <section class="panel" aria-labelledby="outputHeading">
       <div class="section-heading">
-        <h2>کانفیگ خروجی</h2>
-        <span class="tag">IP مقصد: 8.47.69.0:443</span>
+        <h2 id="outputHeading">کانفیگ خروجی</h2>
+
+        <span id="outputTag" class="tag">
+          اپراتور انتخاب نشده است
+        </span>
       </div>
+
       <label for="outputConfig">خروجی تبدیل‌شده</label>
-      <textarea id="outputConfig" spellcheck="false" dir="ltr" readonly placeholder="خروجی اینجا نمایش داده می‌شود..."></textarea>
+
+      <textarea
+        id="outputConfig"
+        spellcheck="false"
+        dir="ltr"
+        readonly
+        placeholder="خروجی اینجا نمایش داده می‌شود..."
+      ></textarea>
+
       <div class="actions">
-        <button id="copyBtn" class="button primary" type="button" disabled>کپی خروجی</button>
-        <a id="testLink" class="button secondary disabled" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">باز کردن لینک</a>
+        <button
+          id="copyBtn"
+          class="button primary"
+          type="button"
+          disabled
+        >
+          کپی خروجی
+        </button>
+
+        <a
+          id="testLink"
+          class="button secondary disabled"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled="true"
+          tabindex="-1"
+        >
+          باز کردن در کلاینت
+        </a>
       </div>
-      <p class="note"><strong>توجه:</strong> اعتبارسنجی ساختاری تضمین نمی‌کند که سرور مقصد فعال باشد یا کلاینت شما از همه پارامترها پشتیبانی کند. از کانفیگ فقط با اجازه و در چارچوب قوانین مربوط استفاده کنید.</p>
+
+      <p class="note">
+        <strong>توجه:</strong>
+        اعتبارسنجی فقط ساختار آدرس و پارامترهای قالب را بررسی می‌کند.
+        اتصال واقعی آزمایش نمی‌شود. فعال‌بودن UUID روی سرور مقصد و
+        پشتیبانی کلاینت از پارامترها ضروری است.
+      </p>
     </section>
 
-    <footer>HTML · CSS · JavaScript — مناسب انتشار روی GitHub Pages</footer>
+    <footer>
+      HTML · CSS · JavaScript — مناسب انتشار روی GitHub Pages
+    </footer>
   </main>
 </body>
 </html>
