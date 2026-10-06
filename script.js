@@ -257,14 +257,6 @@ document.getElementById('mciBtn').addEventListener('click', () => {
   convert('mci');
 });
 
-document.getElementById('loadExample').addEventListener('click', () => {
-  inputEl.value = SAMPLE_INPUT;
-  resetOutput();
-
-  setStatus(
-    'نمونه وارد شد. برای ساخت خروجی، «کانفیگ ایرانسل» یا «کانفیگ همراه اول» را انتخاب کنید.'
-  );
-});
 
 document.getElementById('clearBtn').addEventListener('click', () => {
   inputEl.value = '';
