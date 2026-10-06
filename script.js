@@ -1,7 +1,5 @@
 'use strict';
 
-const SAMPLE_INPUT =
-  'vless://c5209cfd-0e18-4e0d-8f0a-ef8a5fd0ce80@gvp.mobilerom.vu:2087?encryption=none&host=login.vip2vip.info&path=%2F&security=none&type=httpupgrade#Tunnel%20zero';
 
 const inputEl = document.getElementById('inputConfig');
 const outputEl = document.getElementById('outputConfig');
